@@ -1,10 +1,14 @@
 <template>
     <li class="header-menu-item">
-        <slot>
-        </slot>
+        <router-link :to="path">
+            <slot>
+            </slot>
+        </router-link>
     </li>
 </template>
 <script>
-export default {};
+export default {
+  props: ["path"]
+};
 </script>
 

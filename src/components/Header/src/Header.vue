@@ -42,11 +42,13 @@ export default {
       menusList: [
         {
           id: 1,
-          name: "首页"
+          name: "首页",
+          path: "/main"
         },
         {
           id: 2,
-          name: "概览"
+          name: "概览",
+          path: "/overview"
         }
       ]
     };

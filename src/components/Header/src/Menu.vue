@@ -1,7 +1,7 @@
 <template>
-    <ul class="header-menu-list">
-        <menu-item v-for="menu in menus" :key="menu.id">{{menu.name}}</menu-item>
-    </ul>
+  <ul class="header-menu-list">
+    <menu-item v-for="menu in menus" :key="menu.id" :path="menu.path">{{menu.name}}</menu-item>
+  </ul>
 </template>
 <style lang="postcss" scoped>
 .header-menu-list {
