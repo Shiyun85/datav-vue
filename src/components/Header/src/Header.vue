@@ -4,6 +4,7 @@
       Carsmart
       <sup>Beta</sup>
     </div>
+    <menu-v v-bind:menus="menusList"></menu-v>
   </header>
 </template>
 <style lang="postcss" scoped>
@@ -33,11 +34,24 @@
 </style>
 
 <script>
+import MenuV from "./Menu";
 export default {
   name: "Header",
   data() {
-    return {};
-  }
+    return {
+      menusList: [
+        {
+          id: 1,
+          name: "首页"
+        },
+        {
+          id: 2,
+          name: "概览"
+        }
+      ]
+    };
+  },
+  components: { MenuV }
 };
 </script>
 
