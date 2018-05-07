@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <Header></Header>
-    <img src="./assets/logo.png">
     <router-view/>
   </div>
 </template>
@@ -20,8 +19,11 @@ export default {
     Microsoft YaHei, \\5fae\8f6f\96c5\9ed1, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+a {
+  text-decoration: none;
+  color: #666666;
 }
 </style>

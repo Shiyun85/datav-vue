@@ -34,7 +34,7 @@
 </style>
 
 <script>
-import MenuV from "./Menu";
+import MenuV from "@/components/Menu";
 export default {
   name: "Header",
   data() {
@@ -49,6 +49,21 @@ export default {
           id: 2,
           name: "概览",
           path: "/overview"
+        },
+        {
+          id: 3,
+          name: "实时图",
+          path: ""
+        },
+        {
+          id: 4,
+          name: "管理",
+          submenus: [
+            {
+              id: "5",
+              name: "事件管理"
+            }
+          ]
         }
       ]
     };
