@@ -31,6 +31,7 @@ export default {
     menu: Object,
     index: String
   },
+  inject: ["rootMenu"],
   data() {
     return {
       isHover: false
@@ -38,7 +39,7 @@ export default {
   },
   computed: {
     active() {
-      return this.$parent.activeIndex === this.index;
+      return this.rootMenu.activeIndex === this.index;
     }
   },
   methods: {

@@ -4,8 +4,7 @@
       <slot name="title"></slot>
     </div>
     <ul class="submenu__list--wraper" ref="submenu-list" v-show="opened">
-
-      <li v-for="menu in submenus" :key="menu.id" :path="menu.path">{{menu.name}}</li>
+      <menu-item v-for="menu in submenus" :key="menu.id" :menu="menu" :index="menu.path">{{menu.name}}</menu-item>
     </ul>
   </li>
 
@@ -31,11 +30,13 @@
 </style>
 
 <script>
+import MenuItem from "./MenuItem";
 export default {
   name: "Submenu",
   props: {
     submenus: Array
   },
+  components: { MenuItem },
   data() {
     return {
       timeout: null,

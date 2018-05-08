@@ -37,6 +37,11 @@ export default {
       default: "/main"
     }
   },
+  provide() {
+    return {
+      rootMenu: this
+    };
+  },
   data() {
     return {
       activeIndex: this.defaultActive
