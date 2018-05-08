@@ -1,11 +1,13 @@
 <template>
-    <li>
-        <slot name="title"></slot>
-        <ul class="submenu__list--wraper">
+  <li @mouseenter="handleMouseenter" @mouseleave="handleMouseleave">
+    <div ref="submenu-title">
+      <slot name="title"></slot>
+    </div>
+    <ul class="submenu__list--wraper" ref="submenu-list" v-show="opened">
 
-            <li v-for="menu in submenus" :key="menu.id" :path="menu.path">{{menu.name}}</li>
-        </ul>
-    </li>
+      <li v-for="menu in submenus" :key="menu.id" :path="menu.path">{{menu.name}}</li>
+    </ul>
+  </li>
 
 </template>
 <style lang="postcss" scoped>
@@ -33,6 +35,29 @@ export default {
   name: "Submenu",
   props: {
     submenus: Array
+  },
+  data() {
+    return {
+      timeout: null,
+      mouseInChild: false,
+      opened: false
+    };
+  },
+  methods: {
+    handleMouseenter(e) {
+      this.opened = true;
+      clearTimeout(this.timeout);
+      console.log(e);
+    },
+    handleMouseleave() {
+      clearTimeout(this.timeout);
+
+      this.timeout = setTimeout(() => {
+        if (!this.mouseInChild) {
+          this.opened = false;
+        }
+      }, 300);
+    }
   }
 };
 </script>

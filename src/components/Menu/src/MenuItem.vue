@@ -1,5 +1,5 @@
 <template>
-  <li class="header-menu-item" :class="{'is-active':active}" @click="handleClick">
+  <li class="header-menu-item" :class="{'is-active':active,'is-hover':isHover}" @click="handleClick" @mouseenter="handleMouseenter" @mouseleave="handleMouseleave">
     <template v-if="!menu.submenu">
       <slot>
       </slot>
@@ -18,6 +18,11 @@
 .is-active a {
   color: #ea6947;
 }
+.is-hover {
+  border-bottom: 2px solid #ea6947;
+  font-weight: 600;
+  color: #ea6947;
+}
 </style>
 
 <script>
@@ -25,6 +30,11 @@ export default {
   props: {
     menu: Object,
     index: String
+  },
+  data() {
+    return {
+      isHover: false
+    };
   },
   computed: {
     active() {
@@ -35,6 +45,12 @@ export default {
     handleClick() {
       this.$parent.$emit("item-click", this);
       this.$router.push({ path: this.index });
+    },
+    handleMouseenter() {
+      this.isHover = true;
+    },
+    handleMouseleave() {
+      this.isHover = false;
     }
   }
 };

@@ -22,11 +22,6 @@
   padding: 0 12px;
   cursor: pointer;
 }
-.header-menu-list li:hover {
-  border-bottom: 2px solid #ea6947;
-  font-weight: 600;
-  color: #ea6947;
-}
 </style>
 
 <script>
