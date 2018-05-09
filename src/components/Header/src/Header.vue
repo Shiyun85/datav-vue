@@ -61,19 +61,23 @@ export default {
           submenus: [
             {
               id: "5",
-              name: "事件管理"
+              name: "事件管理",
+              path: "/manage/event"
             },
             {
               id: "6",
-              name: "事件属性管理"
+              name: "事件公共属性",
+              path: "/manage/eventprops"
             },
             {
               id: "7",
-              name: "实体管理"
+              name: "实体管理",
+              path: "/manage/entity"
             },
             {
               id: "8",
-              name: "实体属性管理"
+              name: "实体公共属性",
+              path: "/manage/entityprops"
             }
           ]
         }

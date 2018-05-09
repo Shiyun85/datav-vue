@@ -33,6 +33,7 @@
 import MenuItem from "./MenuItem";
 export default {
   name: "Submenu",
+  componentName: "Submenu",
   props: {
     submenus: Array
   },
@@ -48,7 +49,6 @@ export default {
     handleMouseenter(e) {
       this.opened = true;
       clearTimeout(this.timeout);
-      console.log(e);
     },
     handleMouseleave() {
       clearTimeout(this.timeout);

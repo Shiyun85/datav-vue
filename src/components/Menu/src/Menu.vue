@@ -29,6 +29,7 @@ import MenuItem from "./MenuItem";
 import SubMenu from "./SubMenu";
 export default {
   name: "Menu",
+  componentName: "Menu",
   components: { MenuItem, SubMenu },
   props: {
     menus: Array,
