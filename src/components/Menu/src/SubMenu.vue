@@ -1,6 +1,6 @@
 <template>
-  <li @mouseenter="handleMouseenter" @mouseleave="handleMouseleave">
-    <div ref="submenu-title">
+  <li @mouseenter="handleMouseenter" @mouseleave="handleMouseleave" :class="{'is-submenu-active':submenuActive}">
+    <div ref="submenu-title" class="submenu-title">
       <slot name="title"></slot>
     </div>
     <ul class="submenu__list--wraper" ref="submenu-list" v-show="opened">
@@ -27,15 +27,31 @@
   z-index: 100;
   text-align: center;
 }
+.is-submenu-active {
+  border-bottom: 2px solid #ea6947;
+}
+.is-submenu-active div {
+  color: #ea6947;
+}
 </style>
 
 <script>
 import MenuItem from "./MenuItem";
 export default {
   name: "Submenu",
+  inject: ["rootMenu"],
   componentName: "Submenu",
   props: {
     submenus: Array
+  },
+  computed: {
+    submenuActive() {
+      let that = this;
+      let index = this.submenus.find(value => {
+        return that.rootMenu.activeIndex == value.path;
+      });
+      return index;
+    }
   },
   components: { MenuItem },
   data() {

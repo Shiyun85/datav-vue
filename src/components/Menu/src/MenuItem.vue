@@ -1,5 +1,5 @@
 <template>
-  <li class="header-menu-item" :class="{'is-active':active,'is-hover':isHover,'is-submenu-hover':submenuHover}" @click="handleClick" @mouseenter="handleMouseenter" @mouseleave="handleMouseleave" :style="{itemStyle}">
+  <li class="header-menu-item" :class="{'is-active':active,'is-hover':isHover,'is-submenu-hover':submenuHover}" @click="handleClick" @mouseenter="handleMouseenter" @mouseleave="handleMouseleave" :style="itemStyle">
     <template v-if="!menu.submenu">
       <slot>
       </slot>
@@ -59,8 +59,9 @@ export default {
     itemStyle() {
       const style = {};
       if (this.rootMenu !== this.parentMenu) {
-        return (style.borderBottomWidth = 0);
+        style.borderBottomWidth = 0;
       }
+      return style;
     }
   },
   methods: {
