@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <Header></Header>
-    <router-view/>
+    <div class="main-content">
+      <router-view/>
+    </div>
+
   </div>
 </template>
 
@@ -20,7 +23,18 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+}
+.main-content {
+  height: calc(100% - 70px);
+  background: #e8ebed;
+  margin-top: 10px;
+  overflow: auto;
+}
+html,
+body {
+  margin: 0;
+  height: 100%;
 }
 a {
   text-decoration: none;
