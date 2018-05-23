@@ -35,7 +35,17 @@ export default {
   },
   mounted() {
     this.$axios.get("/datav-ws/ws/0.1/board/-2").then(result => {
-      console.log(result);
+      let datas = result.datas;
+      let item = [];
+      datas.forEach((obj, idx) => {
+        item.push({
+          x: obj.graphPlaceX,
+          y: obj.graphPlaceY,
+          w: obj.graphWidth,
+          h: obj.graphHeight,
+          i: idx
+        });
+      });
     });
   }
 };
