@@ -1,52 +1,70 @@
 <template>
-  <chart-list :layoutItem="layoutItem"></chart-list>
+  <chart-list :layoutItem="layoutItem" v-if="layoutItem.length"></chart-list>
 </template>
 <script>
-import { GridLayout, GridItem } from "vue-grid-layout";
-import chartList from "@/components/chartList";
+import chartList from '@/components/chartList';
+import { getDimensionsFromDatas, getColumnValues } from '@/common/js/util';
+import CHART_CONFIG from '@/common/js/echart-config';
 export default {
-  name: "Home",
+  name: 'Home',
   components: { chartList },
   data() {
     return {
-      layoutItem: [
-        { x: 0, y: 0, w: 2, h: 2, i: "0" },
-        { x: 2, y: 0, w: 2, h: 4, i: "1" },
-        { x: 4, y: 0, w: 2, h: 5, i: "2" },
-        { x: 6, y: 0, w: 2, h: 3, i: "3" },
-        { x: 8, y: 0, w: 2, h: 3, i: "4" },
-        { x: 10, y: 0, w: 2, h: 3, i: "5" },
-        { x: 0, y: 5, w: 2, h: 5, i: "6" },
-        { x: 2, y: 5, w: 2, h: 5, i: "7" },
-        { x: 4, y: 5, w: 2, h: 5, i: "8" },
-        { x: 6, y: 4, w: 2, h: 4, i: "9" },
-        { x: 8, y: 4, w: 2, h: 4, i: "10" },
-        { x: 10, y: 4, w: 2, h: 4, i: "11" },
-        { x: 0, y: 10, w: 2, h: 5, i: "12" },
-        { x: 2, y: 10, w: 2, h: 5, i: "13" },
-        { x: 4, y: 8, w: 2, h: 4, i: "14" },
-        { x: 6, y: 8, w: 2, h: 4, i: "15" },
-        { x: 8, y: 10, w: 2, h: 5, i: "16" },
-        { x: 10, y: 4, w: 2, h: 2, i: "17" },
-        { x: 0, y: 9, w: 2, h: 3, i: "18" },
-        { x: 2, y: 6, w: 2, h: 2, i: "19" }
-      ]
+      layoutItem: []
     };
   },
-  mounted() {
-    this.$axios.get("/datav-ws/ws/0.1/board/-2").then(result => {
-      let datas = result.datas;
-      let item = [];
+  methods: {
+    _fetchOptionById(id, item) {},
+    _mixinOptToItem(items) {
+      let itemsLen = items.length;
+      let successIndex = 0;
+      items.forEach((item, idx) => {
+        let url = `/datav-ws/ws/0.1/graph/${item.id}`;
+        item.options = {
+          xAxis: { type: 'category' },
+          yAxis: {}
+        };
+        this.$axios.get(url).then(result => {
+          successIndex++;
+          let data = result.data;
+          // 生成echart options; 此代碼應該獨立出來
+          let dimensions = getDimensionsFromDatas(data.datas);
+          let columnValues = getColumnValues(data.datas);
+          item.options.dataset = {
+            source: [dimensions, ...columnValues]
+          };
+          item.options.series = [];
+          for (let index = 0; index < dimensions.length - 1; index++) {
+            item.options.series.push({
+              type: CHART_CONFIG.CHART_TYPE[result.data.styleId]
+            });
+          }
+          if (successIndex == itemsLen) {
+            this.layoutItem = items;
+          }
+        });
+      });
+    },
+    _onSuccess(result) {
+      let datas = result.data.graphs;
+      let items = [];
+      let options = {};
       datas.forEach((obj, idx) => {
-        item.push({
+        items.push({
           x: obj.graphPlaceX,
           y: obj.graphPlaceY,
           w: obj.graphWidth,
           h: obj.graphHeight,
-          i: idx
+          i: idx + '',
+          id: obj.id
         });
       });
-    });
+      this._mixinOptToItem([].concat(items));
+      //this.layoutItem = item;
+    }
+  },
+  mounted() {
+    this.$axios.get('/datav-ws/ws/0.1/board/-2').then(this._onSuccess);
   }
 };
 </script>

@@ -7,26 +7,26 @@
   </div>
 </template>
 <script>
-import VTree from "vue-tree-halower";
-import "vue-tree-halower/dist/halower-tree.min.css";
+import VTree from 'vue-tree-halower';
+import 'vue-tree-halower/dist/halower-tree.min.css';
 export default {
   data() {
     return {
-      searchword: "",
+      searchword: '',
       treeData: [
         {
           id: 1,
-          title: "node1",
+          title: 'node1',
           expanded: true,
           children: [
             {
               id: 2,
-              title: "node 1-1",
+              title: 'node 1-1',
               expanded: true
             },
             {
               id: 3,
-              title: "node 1-2"
+              title: 'node 1-2'
             }
           ]
         }
@@ -40,9 +40,9 @@ export default {
     tpl(node, ctx) {
       let isFolder = node.children && node.children.length;
       let titleClass = node.selected
-        ? "node-title node-selected"
-        : "node-title";
-      if (node.searched) titleClass += " node-searched";
+        ? 'node-title node-selected'
+        : 'node-title';
+      if (node.searched) titleClass += ' node-searched';
       let returnStr = (
         <span>
           <span
